@@ -1,5 +1,5 @@
-from fglib import *
-
+#from fglib import *
+from pyfactorg import *
 
 def fix_argument(var_free, index_free, index_fixed, value): 
     res = [0]*(len(index_free) + len(index_fixed))
@@ -85,18 +85,17 @@ def f0_img(asn):
 def default_fg():
     return make_distgauss()
 
-def scoreImg(nodes, fg):
+def scoreImg(nodes, fg, initial_fg = None, lower_beta = 200, upper_beta = 100, trans_iter = 100):
     init_asn = constructAssignments(nodes)
 
     samples = 1
 
-    f0 = f0_img # we can try multimodal gaussians as the initial distribution; or some other options
+    f0 = initial_fg
+    if initial_fg == None:
+        f0 = f0_img
+
+    #f0 = f0_img # we can try multimodal gaussians as the initial distribution; or some other options
     fn = lambda asn: logscore(fg, asn)
-
-    lower_beta = 200
-    upper_beta = 100
-
-    trans_iter = 20
 
     proposal_fx = lambda asn: gaussPerturbProposalByName(asn, 'pos', 0.1, rndSelect(asn.keys()))
     trans_kernel = lambda *args: MH_n_iter(*args)[0]

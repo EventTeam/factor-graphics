@@ -75,7 +75,7 @@ def fg_parse(filename, exclude = []):
 
     fsts = lambda xs: map(lambda (x, y): x, xs)
 
-    Node = Term('Node', ['label', 'pos', 'radius', 'blobbiness', "Distance", 'Straightness', 'children'])
+    Node = Term('Node', ['label', 'pos', "Distance", 'children'])
 
     get_ints = lambda xs: map(int, xs)
     get_floats = lambda xs: map(float, xs)
@@ -86,10 +86,10 @@ def fg_parse(filename, exclude = []):
     parses = {
             'label' : get_one_int,
             'pos' : get_floats,
-            'radius': get_one_float,
-            'blobbiness': get_one_float,
+            #'radius': get_one_float,
+            #'blobbiness': get_one_float,
             'Distance': get_floats,
-            'Straightness': get_floats,
+            #'Straightness': get_floats,
             'children': get_ints
             }
 
@@ -109,10 +109,10 @@ def fg_parse(filename, exclude = []):
         node = Node(
                 parsed_data['label'],
                 parsed_data.get('pos', (0,0)),
-                parsed_data['radius'],
-                parsed_data['blobbiness'],
+                #parsed_data['radius'],
+                #parsed_data['blobbiness'],
                 parsed_data['Distance'],
-                parsed_data['Straightness'],
+                #parsed_data['Straightness'],
                 parsed_data.get('children', []))
 
         return node
@@ -126,7 +126,7 @@ def fg_parse(filename, exclude = []):
         result += [mklist(field, *node.__dict__[field]) if type(node.__dict__[field]) in (list, tuple) else mklist(field, node.__dict__[field]) for field in fields if field not in exclude]
         return result
 
-    fields = ['label', 'pos', 'radius', 'blobbiness', 'Distance', 'Straightness']
+    fields = ['label', 'pos', 'Distance']
     def mk_sexpr(node):
         return mklist('N', 
                 mkData(node, fields),

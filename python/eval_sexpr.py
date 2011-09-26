@@ -27,13 +27,14 @@ class Fail():
 cmd_dict = {
         'label': lambda latest, val, node_dict, node_stack: setEltAttr(latest, "label", val, node_dict),
         'pos': lambda latest, val, node_dict, node_stack: setEltAttr(latest, "pos", tuple(val), node_dict),
-        'radius': lambda latest, val, node_dict, node_stack: setEltAttr(latest, "radius", val, node_dict),
-        'blobbiness': lambda latest, val, node_dict, node_stack: setEltAttr(latest, "blobbiness", val, node_dict),
+        #'radius': lambda latest, val, node_dict, node_stack: setEltAttr(latest, "radius", val, node_dict),
+        #'blobbiness': lambda latest, val, node_dict, node_stack: setEltAttr(latest, "blobbiness", val, node_dict),
         'Distance': lambda latest, val, node_dict, node_stack: makeFactor(
             [node_dict[latest], node_stack[-1]],
             lambda x, y: make_distgauss(*val)(x.pos, y.pos)) if len(node_stack) >= 1 else Fail(),
-        'Straightness': lambda latest, val, node_dict, node_stack: makeFactor([node_dict[latest], node_stack[-1], node_stack[-2]], 
-            lambda x, y, z: make_straightgauss(*val)(x.pos, y.pos, z.pos)) if len(node_stack) >= 2 else Fail()
+        #'Straightness': lambda latest, val, node_dict, node_stack: makeFactor([node_dict[latest], node_stack[-1], node_stack[-2]], 
+        #    lambda x, y, z: make_straightgauss(*val)(x.pos, y.pos, z.pos)) if len(node_stack) >= 2 else Fail()
+        'Straightness': lambda *args: None
         }
 mkParent = lambda latest, val, node_dict, node_stack: setEltAttr(latest, "parent", node_stack[-1], node_dict)
 
@@ -70,6 +71,7 @@ def evalFactorTree(ftree, node_stack, result_fg, node_dict):
         data = data[0]
         data = map(lambda n_v: (n_v[0], tuple(n_v[1:]) if len(n_v) > 2 else n_v[1]),  data[1:])
         new_factors = map(lambda (name, val): cmd_dict[name](latest, val, node_dict, node_stack), data)
+        new_factors = filter(lambda f: f != None, new_factors)
         if len(node_stack) >= 2:
             map(lambda (name, val): mkParent(latest, val, node_dict, node_stack), data)
 

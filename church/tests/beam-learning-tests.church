@@ -17,18 +17,23 @@
 
 (define fg2 '(N (data (label 1) (radius 5) (blobbiness 10) (Distance 5 .5) (Straightness 0 0.1))))
 (define images (init-images))
+(define test-fg (image->factor-graph "test.img"))
 ;;;init-images tests
 (equal?-test "image->factor-graph test"
-             (image->factor-graph (first images))
+             ;;;(image->factor-graph (first images))
+             (image->factor-graph "test.img")
              fg)
+(display "==========")
 
 ;;;global test data
 (define worse-than-initial-sexpr (list 'lambda '() (list (list 'uniform-draw  (list 'list (list 'lambda '() fg2) (list 'lambda '() fg2))))))
 
+(display "22222222222")
 (define models-for-comparison (let* ([sexprs (list (make-initial-sexpr images) worse-than-initial-sexpr)]
                                      [possible-programs (map (lambda (p) (make-program '() p)) sexprs)])
                                 possible-programs))
 
+(display "33333333333")
 ;;;make-initial-sexpr test, this is a program that returns lazy factor graphs
 ;; (equal?-test "initial-sexpr test sexpr" (make-initial-sexpr images) (list 'lambda '() (list (list 'uniform-draw  (list 'list (list 'lambda '() fg))))))
 
@@ -107,8 +112,15 @@
 
 ;;;learn-model tests
 ;;type check, learn-model should process a list of factor-graphs and return a function that generates factor graphs
+;;
+(display "444444444444")
+(newline)
 (define timed-learn-model (time-it learn-model))
-(evaluates?-test "learned-model" ((timed-learn-model images 1 2)))
-
+(display "555555555555")
+(newline)
+(learn-model images 1 2)
+;;;(evaluates?-test "learned-model" ((timed-learn-model images 1 2)))
+(display "666666666666")
+(newline)
 
 (exit)
