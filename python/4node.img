@@ -1,0 +1,4 @@
+N label 1 pos 0.0 0.0 Distance 0.0 0.5 children 2
+N label 2 pos 0.0 4.0 Distance 4.0 0.5 children 3
+N label 3 pos 4.0 4.0 Distance 4.0 0.5 children 4
+N label 4 pos 4.0 0.0 Distance 4.0 0.5

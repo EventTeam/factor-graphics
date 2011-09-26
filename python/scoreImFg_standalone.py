@@ -3,6 +3,8 @@ import test
 
 from fg_interface import *
 
+#python scoreImFg_standalone.py -i 4node.img -f 4node.fgs -l 4node.lb -u 4node.ub -t 4node.trials
+
 def score_img(nodes, factors, imnodes):
     load_asn_from_nodes(nodes, imnodes)
     input_image = constructAssignments(nodes)
