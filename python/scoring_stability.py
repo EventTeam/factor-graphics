@@ -3,7 +3,7 @@ from pyfactorg import *
 
 # id, posx, posy <children>
 
-filename_pre = "4node"
+filename_pre = "5node"
 
 class Joint(object):
     def __init__(self, id, posx, posy, children, parent = None):
