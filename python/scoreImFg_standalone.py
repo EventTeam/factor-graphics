@@ -25,6 +25,7 @@ def make_init_fg(num_nodes):
 def read_val_from_file(filename):
     return [line.rstrip() for line in open(filename).readlines()]
 
+
 from optparse import OptionParser
 
 def init_app():
@@ -67,6 +68,7 @@ if __name__ == "__main__":
 
     proposed_topos = map(lambda fn: (fn, mkFGFromFile(fn)), proposed_topo_filenames)
     score_img_in_topo = map(lambda (fn, (n, f)): (fn, score_img(n, f, imnodes)), proposed_topos)
+
 
 
     for lb in lowerbetas:
