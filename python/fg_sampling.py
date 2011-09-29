@@ -54,7 +54,13 @@ def sampleEltFG(nodes, factors, mcmc, fixed_asn={}):
 # Scoring
 
 def load_asn_from_nodes(dst_ns, src_ns):
-    dst_src = zip(dst_ns, src_ns)
+    label_node_dict = {}
+    for n in src_ns:
+        label_node_dict[n.tile_obj.label] = [n]
+    for n in dst_ns:
+        label_node_dict[n.tile_obj.label] = [n] + label_node_dict[n.tile_obj.label]
+
+    dst_src = snds(label_node_dict.items())
     map(lambda (dn, sn): dn.setPos(sn.getPos()), dst_src)
 
 def runAIS(init_asn,

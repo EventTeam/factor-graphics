@@ -49,7 +49,7 @@ lbs = [100, 200, 500, 1000]
 ubs = [100, 200, 500, 1000]
 tts = [10, 20, 50, 100]
 
-filenames = ["stability-test/%dnode.img_lb_%d_ub_%d_tt_%d.score" %(4, lb, ub, tt) for lb in lbs for ub in ubs for tt in tts if tt == 50 and lb == 1000]
+filenames = ["stability-test/%dnode.img_lb_%d_ub_%d_tt_%d.score" %(5, lb, ub, tt) for lb in lbs for ub in ubs for tt in tts if lb == 100 and ub == 100]
 
 mean_var_datas = map(mean_var_one_file, filenames)
 plot_multiple(mean_var_datas)
